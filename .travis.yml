@@ -8,7 +8,7 @@ services:
   - postgres
 
 before_install:
-  - psql -U root -c 'CREATE DATABASE IF NOT EXISTS rest_api_example;'
+  - psql -c 'create database postgres ;' -U postgres
 
 install:
   - go get golang.org/x/tools/cmd/cover
