@@ -23,7 +23,7 @@ func TestMain(m *testing.M) {
 	// 	log.Fatal(err)
 	// }
 
-	a.InitializeDb("postgres", "", "crud_api")
+	a.InitializeDb("postgres", "", "crud_api", 5431)
 	a.InitializeRouter()
 	ensureTableExists()
 	code := m.Run()

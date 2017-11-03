@@ -98,6 +98,15 @@ func TestGetUser(t *testing.T) {
 	checkResponseCode(t, http.StatusOK, response.Code)
 }
 
+func TestGetUserInvalidId(t *testing.T) {
+	clearTable()
+
+	req, _ := http.NewRequest("GET", "/user/20", nil)
+	response := executeRequest(req)
+
+	checkResponseCode(t, http.StatusNotFound, response.Code)
+}
+
 func TestUpdateUser(t *testing.T) {
 	clearTable()
 	addUsers(1)
@@ -128,6 +137,16 @@ func TestUpdateUser(t *testing.T) {
 	if m["age"] == originalUser["age"] {
 		t.Errorf("Expected the age to change from '%v' to '%v'. Got '%v'", originalUser["age"], m["age"], m["age"])
 	}
+}
+
+func TestUpdateUserInvalidJSON(t *testing.T) {
+	clearTable()
+	addUsers(1)
+	payload := []byte(`{"name":"no comma""age":21}`)
+	req, _ := http.NewRequest("PUT", "/user/1", bytes.NewBuffer(payload))
+	response := executeRequest(req)
+
+	checkResponseCode(t, http.StatusBadRequest, response.Code)
 }
 
 func TestDeleteUser(t *testing.T) {
