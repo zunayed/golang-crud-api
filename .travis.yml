@@ -8,7 +8,7 @@ services:
   - postgresql
 
 before_install:
-  - psql -c 'create database postgres;' -U postgres
+  - psql -c 'create database crud_api;' -U postgres
 
 install:
   - go get golang.org/x/tools/cmd/cover
