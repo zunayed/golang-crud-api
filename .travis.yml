@@ -11,7 +11,7 @@ before_install:
   - psql -c 'create database crud_api;' -U postgres
 
 install:
-  - go get .
+  - go get ./...
   - go get github.com/mattn/goveralls
 
 script:
