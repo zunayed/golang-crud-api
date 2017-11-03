@@ -15,12 +15,13 @@ type App struct {
 	DB     *sql.DB
 }
 
-func (a *App) InitializeDb(user, password, dbname string) {
+func (a *App) InitializeDb(user, password, dbname string, dbport int) {
 	connectionString := fmt.Sprintf(
-		"user=%s password=%s dbname=%s sslmode=disable",
+		"user=%s password=%s dbname=%s sslmode=disable port=%v",
 		user,
 		password,
 		dbname,
+		dbport,
 	)
 
 	var err error
