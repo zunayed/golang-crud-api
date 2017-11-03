@@ -11,11 +11,8 @@ before_install:
   - psql -c 'create database crud_api;' -U postgres
 
 install:
-  - go get golang.org/x/tools/cmd/cover
+  - go get .
   - go get github.com/mattn/goveralls
-  - go get github.com/gorilla/mux
-  - go get github.com/go-sql-driver/mysql
 
 script:
   - go test -covermode=count -coverprofile=coverage.out
-  - $HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci
