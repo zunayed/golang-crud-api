@@ -5,10 +5,10 @@ go:
   - tip
 
 services:
-  - postgres
+  - postgresql
 
 before_install:
-  - psql -c 'create database postgres ;' -U postgres
+  - psql -c 'create database postgres;' -U postgres
 
 install:
   - go get golang.org/x/tools/cmd/cover
