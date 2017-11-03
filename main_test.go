@@ -1,8 +1,8 @@
 package main
 
 import (
-	"database/sql"
-	"errors"
+	//"database/sql"
+	//"errors"
 	"log"
 	"os"
 	"testing"
