@@ -22,8 +22,6 @@ func checkResponseCode(t *testing.T, expected, actual int) {
 }
 
 func TestGetNonExistentUser(t *testing.T) {
-	clearTable()
-
 	req, _ := http.NewRequest("GET", "/product/45", nil)
 	response := executeRequest(req)
 

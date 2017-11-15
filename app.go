@@ -8,6 +8,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
 type App struct {
@@ -15,7 +16,7 @@ type App struct {
 	DB     *gorm.DB
 }
 
-func (a *App) InitializeDb(user, password, dbname string, dbport int) {
+func (a *App) InitializeDb(user, password, dbname string, dbport int, dbtype string) {
 	connectionString := fmt.Sprintf(
 		"user=%s password=%s dbname=%s sslmode=disable port=%v",
 		user,
@@ -25,9 +26,13 @@ func (a *App) InitializeDb(user, password, dbname string, dbport int) {
 	)
 
 	var err error
-	a.DB, err = gorm.Open("postgres", connectionString)
-	if err != nil {
-		panic("failed to connect database")
+	if dbtype == "test" {
+		a.DB, err = gorm.Open("sqlite3", ":memory:")
+	} else {
+		a.DB, err = gorm.Open("postgres", connectionString)
+		if err != nil {
+			panic("failed to connect database")
+		}
 	}
 
 	// Migrate the schema

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"os"
 	"testing"
 )
@@ -8,15 +9,17 @@ import (
 var a App
 
 func TestMain(m *testing.M) {
-	a.InitializeDb("postgres", "", "crud_api", 5432)
+	dbtype := os.Getenv("DBTYPE")
+
+	if dbtype == "postgres" {
+		log.Printf("Using real postgres backend")
+		a.InitializeDb("postgres", "", "postgres", 5432, "")
+	} else {
+		log.Printf("Using SQL lite backend")
+		a.InitializeDb("", "", "", 5432, "test")
+	}
 	a.InitializeRouter()
 	code := m.Run()
-	clearTable()
+	a.DB.DropTable(&Product{})
 	os.Exit(code)
-}
-
-func clearTable() {
-	a.DB.Exec("DELETE FROM products")
-	a.DB.Exec("ALTER SEQUENCE products_id_seq RESTART WITH 1")
-
 }
