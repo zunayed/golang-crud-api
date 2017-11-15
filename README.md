@@ -5,10 +5,10 @@
 
 
 Goals -
-- [] database testing / mocking
-- [] migrations
-- [] handler tests
+- [ ] database testing / mocking
+- [ ] migrations
+- [ ] handler tests
 - [x] remote api testing / mocking
-- [] pagination
-- [] filtering
-- [] api doc generation
+- [ ] pagination
+- [ ] filtering
+- [ ] api doc generation
